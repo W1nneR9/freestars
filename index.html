@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotoPulse — Магазин мотоекіпіровки</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header class="site-header" id="home">
+        <div class="container">
+            <div class="logo">MotoPulse</div>
+            <nav class="main-nav" aria-label="Основна навігація">
+                <button class="nav-toggle" aria-label="Перемикач меню">
+                    <span></span><span></span><span></span>
+                </button>
+                <ul class="nav-links">
+                    <li><a href="#home">Головна</a></li>
+                    <li><a href="#catalog">Каталог</a></li>
+                    <li><a href="#collections">Колекції</a></li>
+                    <li><a href="#reviews">Відгуки</a></li>
+                    <li><a href="#contact">Контакти</a></li>
+                </ul>
+            </nav>
+            <a class="cta-button" href="#catalog">До каталогу</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="hero-copy">
+                    <p class="eyebrow">Новий сезон / 2024</p>
+                    <h1>Екіпіруйся для нових пригод на повну!</h1>
+                    <p class="lead">Преміальна мотоекіпіровка від світових брендів із доставкою по всій Україні. Захист, стиль і комфорт для кожного райдера.</p>
+                    <div class="hero-actions">
+                        <a class="button primary" href="#catalog">Переглянути каталог</a>
+                        <a class="button ghost" href="#collections">Колекції</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div>
+                            <span class="stat-number">1200+</span>
+                            <span class="stat-label">Щасливих клієнтів</span>
+                        </div>
+                        <div>
+                            <span class="stat-number">48 год</span>
+                            <span class="stat-label">Середній час доставки</span>
+                        </div>
+                        <div>
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">Підтримка райдерів</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual" aria-hidden="true">
+                    <div class="glow"></div>
+                    <img src="https://images.unsplash.com/photo-1542296332-2e4473faf563?auto=format&fit=crop&w=900&q=80" alt="Мотоцикліст у повному екіпіруванні" loading="lazy">
+                    <div class="floating-card">
+                        <h3>Racing Pro Shield</h3>
+                        <p>Комплект із карбоновим захистом та вентиляцією для міських і трекових заїздів.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features" aria-label="Переваги MotoPulse">
+            <div class="container">
+                <div class="section-header">
+                    <p class="eyebrow">Чому ми</p>
+                    <h2>Технології, які захищають</h2>
+                </div>
+                <div class="feature-grid">
+                    <article class="feature-card">
+                        <div class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img" aria-label="Захист"><path d="M12 2l7 4v6c0 5-3.8 9.7-7 10-3.2-.3-7-5-7-10V6l7-4z" fill="currentColor"/></svg>
+                        </div>
+                        <h3>Експертний підбір</h3>
+                        <p>Персональні консультації та підбір розмірів за 15 хвилин. Працюємо з сертифікованими брендами.</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img" aria-label="Доставка"><path d="M3 3h13l5 5v13H3V3zm13 2v4h4l-4-4z" fill="currentColor"/></svg>
+                        </div>
+                        <h3>Швидка доставка</h3>
+                        <p>Відправлення день у день, страхування посилок і трекінг у реальному часі.</p>
+                    </article>
+                    <article class="feature-card">
+                        <div class="icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img" aria-label="Гарантія"><path d="M12 1l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-8.5L2 8h7l3-7z" fill="currentColor"/></svg>
+                        </div>
+                        <h3>Гарантія 365 днів</h3>
+                        <p>Обмін або повернення без зайвих питань. Додатковий захист для членів MotoPulse Club.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="catalog" id="catalog" aria-label="Каталог продукції">
+            <div class="container">
+                <div class="section-header">
+                    <p class="eyebrow">Каталог</p>
+                    <h2>Мотоекіпіровка для кожного стилю</h2>
+                </div>
+                <div class="filter-bar" role="tablist" aria-label="Фільтр категорій">
+                    <button class="filter-button active" data-filter="all" role="tab" aria-selected="true">Всі товари</button>
+                    <button class="filter-button" data-filter="helmets" role="tab">Шоломи</button>
+                    <button class="filter-button" data-filter="jackets" role="tab">Куртки</button>
+                    <button class="filter-button" data-filter="gloves" role="tab">Рукавички</button>
+                    <button class="filter-button" data-filter="boots" role="tab">Черевики</button>
+                </div>
+                <div class="product-grid" role="list"></div>
+            </div>
+        </section>
+
+        <section class="collections" id="collections" aria-label="Колекції сезону">
+            <div class="container collections-wrapper">
+                <div class="collection-copy">
+                    <p class="eyebrow">Колекції 2024</p>
+                    <h2>Розроблено райдерами, протестовано на треках</h2>
+                    <p>Від міських ком’ютерів до трекових монстрів — ми зібрали три колекції, що поєднують максимальний захист, високі стандарти якості та сучасні матеріали.</p>
+                    <ul class="collection-list">
+                        <li><strong>Urban Flow:</strong> легкі куртки з мембраною, рукавички з сенсорними вставками та шоломи із системою MIPS.</li>
+                        <li><strong>Adventure Pro:</strong> трисезонні костюми, наколінники з титановими вставками та водонепроникні баули.</li>
+                        <li><strong>Track DNA:</strong> гоночні комбінезони, слідові черевики та карбонові шоломи із сертифікацією FIM.</li>
+                    </ul>
+                    <a class="button primary" href="#contact">Замовити консультацію</a>
+                </div>
+                <div class="collection-gallery" role="list">
+                    <figure class="collection-card" role="listitem">
+                        <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=600&q=80" alt="Urban Flow колекція">
+                        <figcaption>Urban Flow</figcaption>
+                    </figure>
+                    <figure class="collection-card" role="listitem">
+                        <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=600&q=80" alt="Adventure Pro колекція">
+                        <figcaption>Adventure Pro</figcaption>
+                    </figure>
+                    <figure class="collection-card" role="listitem">
+                        <img src="https://images.unsplash.com/photo-1507537397447-09c44507c278?auto=format&fit=crop&w=600&q=80" alt="Track DNA колекція">
+                        <figcaption>Track DNA</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <section class="highlight" aria-label="Ексклюзивна пропозиція">
+            <div class="container highlight-card">
+                <div class="highlight-copy">
+                    <p class="eyebrow">Ексклюзив</p>
+                    <h2>Комбінезон Aegis One Carbon</h2>
+                    <p>Сертифікована захисна броня рівня AA, додаткові слайдери на ліктях та колінах, вентиляційні зони лазерного крою і термостійка підкладка.</p>
+                    <div class="price-line">
+                        <span class="price-new">₴27 900</span>
+                        <span class="price-old">₴31 500</span>
+                        <span class="badge">-12%</span>
+                    </div>
+                    <a class="button secondary" href="#contact">Забронювати примірку</a>
+                </div>
+                <div class="highlight-visual" aria-hidden="true">
+                    <img src="https://images.unsplash.com/photo-1465153690352-10c1b29577f8?auto=format&fit=crop&w=800&q=80" alt="Комбінезон Aegis One Carbon">
+                    <div class="specs">
+                        <div><span>Матеріал</span><strong>Кенгара шкіра + карбон</strong></div>
+                        <div><span>Безпека</span><strong>CE Level 2</strong></div>
+                        <div><span>Вага</span><strong>3.9 кг</strong></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reviews" id="reviews" aria-label="Відгуки клієнтів">
+            <div class="container">
+                <div class="section-header">
+                    <p class="eyebrow">Відгуки</p>
+                    <h2>Нам довіряють досвідчені райдери</h2>
+                </div>
+                <div class="review-carousel" role="list"></div>
+                <div class="carousel-controls" role="group" aria-label="Керування відгуками">
+                    <button class="carousel-button prev" aria-label="Попередній відгук">‹</button>
+                    <button class="carousel-button next" aria-label="Наступний відгук">›</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-newsletter" aria-label="Підписка на оновлення">
+            <div class="container">
+                <div class="newsletter-card">
+                    <h2>Отримуйте свіжі релізи та закриті розпродажі</h2>
+                    <p>Підписуйтеся, щоб першими дізнаватися про нові поставки, тест-драйви та клубні івенти.</p>
+                    <form class="newsletter-form" action="#" method="post">
+                        <label class="sr-only" for="email">Електронна пошта</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                        <button type="submit" class="button primary">Підписатись</button>
+                    </form>
+                    <span class="privacy">Ми не надсилаємо спам і не передаємо дані третім особам.</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+        <div class="container footer-grid">
+            <div>
+                <div class="logo">MotoPulse</div>
+                <p>Професійний магазин мотоекіпіровки. Допомагаємо знайти ідеальний баланс між безпекою та стилем.</p>
+                <div class="social-links" aria-label="Соціальні мережі">
+                    <a href="https://www.instagram.com" aria-label="Instagram">Instagram</a>
+                    <a href="https://www.facebook.com" aria-label="Facebook">Facebook</a>
+                    <a href="https://t.me" aria-label="Telegram">Telegram</a>
+                </div>
+            </div>
+            <div>
+                <h3>Контакти</h3>
+                <ul>
+                    <li>Телефон: <a href="tel:+380441234567">+38 (044) 123 45 67</a></li>
+                    <li>Email: <a href="mailto:hello@motopulse.ua">hello@motopulse.ua</a></li>
+                    <li>Шоурум: Київ, вул. Антоновича, 172</li>
+                    <li>Графік: Пн-Сб 10:00-20:00</li>
+                </ul>
+            </div>
+            <div>
+                <h3>Допомога</h3>
+                <ul>
+                    <li><a href="#">Оплата і доставка</a></li>
+                    <li><a href="#">Гарантія і повернення</a></li>
+                    <li><a href="#">Клуб MotoPulse</a></li>
+                    <li><a href="#">Подарункові сертифікати</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3>Підтримка</h3>
+                <p>Напишіть нам у будь-якому месенджері — відповідаємо до 15 хвилин.</p>
+                <a class="button secondary" href="https://t.me">Чат із консультантом</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2024 MotoPulse. Всі права захищені.</p>
+            <a href="#home" class="back-to-top" aria-label="Угору">До початку</a>
+        </div>
+    </footer>
+
+    <script src="assets/js/app.js" defer></script>
+</body>
+</html>
