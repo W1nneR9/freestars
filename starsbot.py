@@ -1,132 +1,83 @@
-import logging
-import os
-from datetime import datetime
-from aiogram import Bot, Dispatcher, types
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, FSInputFile
-from aiogram.filters import Command
 import asyncio
+import os
+from aiogram import Bot, Dispatcher, types
+from aiogram.filters import Command
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-TOKEN = "7719344191:AAEeSvcUdKKusoFHFBDptU4D5TKW_YW7Sb4"  # Замени на свой токен
-CHECK_CHANNEL = "@freepodarkitg"  # Канал для проверки подписки
-SPONSOR_CHANNELS = [
-    ("Спонсор 1", "https://t.me/+mgWOYM5xPbA0MGQy"),
-    ("Спонсор 2", "https://t.me/+SnF1AIfzLqQyMTRi"),
-    ("Спонсор 3", "https://t.me/+lI7GtGXIGlgyYmIy"),
-    ("Спонсор 4", "https://t.me/freepodarkitg"),
+TOKEN = os.getenv("BOT_TOKEN", "YOUR_BOT_TOKEN")
+
+SPONSORS = [
+    ("Спонсор 1", "https://t.me/sponsor1"),
+    ("Спонсор 2", "https://t.me/sponsor2"),
+    ("Спонсор 3", "https://t.me/sponsor3"),
+    ("Спонсор 4", "https://t.me/sponsor4"),
 ]
 
-PHOTO_PATH = "starsfree.png"  # Путь к фото (замени на нужный файл)
-PHOTO_URL = "https://example.com/photo.jpg"  # Если используешь URL
+GIFT_BUTTONS = {
+    "gift_rose": "🎁 Роза",
+    "gift_rocket": "🚀 Ракета",
+    "gift_cake": "🍰 Тортик",
+}
 
-# Создаем папку logs, если её нет
-LOGS_DIR = "logs"
-if not os.path.exists(LOGS_DIR):
-    os.makedirs(LOGS_DIR)
-
-# Логирование ошибок
-logging.basicConfig(level=logging.INFO)
-
-# Создаем бота и диспетчер
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
-# Словарь для отслеживания попыток
-user_attempts = {}
 
-
-# Функция для записи информации о пользователе в лог-файл
-def log_user_info(user: types.User):
-    log_file = os.path.join(LOGS_DIR, f"{user.id}.txt")
-    with open(log_file, "w", encoding="utf-8") as file:
-        file.write(f"Имя: {user.full_name}\n")
-        file.write(f"Telegram ID: {user.id}\n")
-        file.write(f"Username: @{user.username if user.username else 'Нет'}\n")
-        file.write(f"Дата входа: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n")
-
-
-# Функция для проверки подписки
-async def check_subscription(user_id: int) -> bool:
-    try:
-        member = await bot.get_chat_member(CHECK_CHANNEL, user_id)
-        return member.status in ["member", "administrator", "creator"]
-    except Exception as e:
-        logging.error(f"Ошибка проверки подписки: {e}")
-        return False
-
-
-# Функция для отправки сообщения с кнопками подписки
-async def send_subscription_message(user_id, message_text):
-    keyboard = InlineKeyboardMarkup(
-        inline_keyboard=[
-            [InlineKeyboardButton(text=name, url=url)] for name, url in SPONSOR_CHANNELS
-        ] + [[InlineKeyboardButton(text="✅ Я подписался", callback_data="check_subscription")]]
-    )
-
-    await bot.send_message(user_id, message_text, reply_markup=keyboard)
-
-
-# Стартовое сообщение с фото
 @dp.message(Command("start"))
-async def start(message: types.Message):
-    user_id = message.from_user.id
-    user_attempts[user_id] = 0  # Сброс счетчика попыток
-
-    # Логируем пользователя
-    log_user_info(message.from_user)
-
-    # Отправляем фото с описанием
+async def cmd_start(message: types.Message) -> None:
     keyboard = InlineKeyboardMarkup(
         inline_keyboard=[
-            [InlineKeyboardButton(text=name, url=url)] for name, url in SPONSOR_CHANNELS
-        ] + [[InlineKeyboardButton(text="✅ Я подписался", callback_data="check_subscription")]]
+            [InlineKeyboardButton(text=name, url=url)] for name, url in SPONSORS
+        ]
+        + [[InlineKeyboardButton(text="Проверить подписки", callback_data="check_subscriptions")]]
     )
 
-    if os.path.exists(PHOTO_PATH):  # Если фото локальное
-        photo = FSInputFile(PHOTO_PATH)
-        await bot.send_photo(
-            user_id,
-            photo,
-            caption="👋 Привет!\n\n"
-                    "Это телеграм-бот для заработка ⭐ звезд.\n\n"
-                    "Чтобы начать, подпишись на всех наших спонсоров и нажми «Я подписался».",
-            reply_markup=keyboard
-        )
-    else:  # Если используем URL
-        await bot.send_photo(
-            user_id,
-            PHOTO_URL,
-            caption="👋 Привет!\n\n"
-                    "Это телеграм-бот для заработка ⭐ звезд.\n\n"
-                    "Чтобы начать, подпишись на всех наших спонсоров и нажми «Я подписался».",
-            reply_markup=keyboard
-        )
+    await message.answer(
+        "Чтобы получить подарок, нужно подписаться на спонсоров и нажать кнопку 'Проверить подписки'.",
+        reply_markup=keyboard,
+    )
 
 
-# Проверка подписки (с учетом попыток)
-@dp.callback_query(lambda c: c.data == "check_subscription")
-async def check_sub(callback: types.CallbackQuery):
-    user_id = callback.from_user.id
-    user_attempts[user_id] += 1  # Увеличиваем счетчик попыток
+@dp.callback_query(lambda query: query.data == "check_subscriptions")
+async def handle_check_subscriptions(callback: types.CallbackQuery) -> None:
+    await callback.answer()
 
-    if user_attempts[user_id] < 3:
-        # Первый и второй раз просто напоминаем
-        await send_subscription_message(user_id, "⚠️ Подпишись на спонсоров, иначе не сможешь пользоваться ботом!")
-    else:
-        # Третий раз проверяем подписку
-        subscribed = await check_subscription(user_id)
-        if subscribed:
-            await callback.message.edit_text(
-                "🎉 Ты все выполнил! Бот работает, ты можешь зарабатывать деньги.\n\n"
-                "⏳ Сейчас бот на техническом перерыве. Возвращайся позже!"
-            )
-        else:
-            # Если не подписался, снова отправляем кнопки
-            await send_subscription_message(user_id, "❌ Ты не подписался! Подпишись и попробуй снова.")
+    countdown_message = await callback.message.answer("Проверяю подписки… (5 секунд)")
+
+    for remaining in range(4, 0, -1):
+        await asyncio.sleep(1)
+        await countdown_message.edit_text(f"Проверяю подписки… ({remaining} секунд)")
+
+    await asyncio.sleep(1)
+    await countdown_message.edit_text("✅ Проверка успешно пройдена")
+
+    gifts_keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text=label, callback_data=callback_data)]
+            for callback_data, label in GIFT_BUTTONS.items()
+        ]
+    )
+
+    await callback.message.answer(
+        "Проверка успешно пройдена!",
+        reply_markup=gifts_keyboard,
+    )
 
 
-# Запуск бота
-async def main():
-    await dp.start_polling(bot)
+@dp.callback_query(lambda query: query.data in GIFT_BUTTONS)
+async def handle_gift_choice(callback: types.CallbackQuery) -> None:
+    await callback.answer()
+    gift_label = GIFT_BUTTONS[callback.data]
+    gift_name = gift_label.split(maxsplit=1)[1]
+
+    await callback.message.answer(
+        f"Вы выбрали {gift_name}.\nВ скором времени вы получите свой подарок 🎉"
+    )
+
+
+def main() -> None:
+    asyncio.run(dp.start_polling(bot))
+
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()
